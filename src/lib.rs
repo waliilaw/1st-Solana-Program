@@ -32,12 +32,12 @@ pub fn counter_contract(
 
     match instruction_type {
         InstructionType::Increment(value ) => {
-            msg!("Applying Increse")
+            msg!("Applying Increse");
             counter_data.counter += value;
 
         } ,
         InstructionType::Decrement(value ) => {
-            msg!("Applying Decrease")
+            msg!("Applying Decrease");
              counter_data.counter -= value;
         } 
     }
