@@ -13,6 +13,11 @@ enum InstructionType {
     Decrement(u32)
 }
 
+#[derive(BorshDeserialize , BorshSerialize)]
+struct Counter {
+   counter : u32
+}
+
 entrypoint!(counter_contract);
 
 pub fn counter_contract(
