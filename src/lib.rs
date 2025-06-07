@@ -1,5 +1,5 @@
-use borsh::BorshDeserialize;
-use borsh_derive::{BorshDeserialize, BorshSerialize};
+use borsh::{BorshDeserialize, BorshSerialize};
+
 use solana_program::{
     account_info::{AccountInfo , next_account_info},
     entrypoint::ProgramResult, entrypoint,
@@ -28,13 +28,21 @@ pub fn counter_contract(
     let acc: &AccountInfo<'_> = next_account_info(&mut accounts.iter())?;
 
     let instruction_type = InstructionType::try_from_slice(instruction_data)?;
+    let mut counter_data = Counter::try_from_slice(&acc.data.borrow())?;
 
     match instruction_type {
         InstructionType::Increment(value ) => {
-            acc.data += value 
+            msg!("Applying Increse")
+            counter_data.counter += value;
+
         } ,
         InstructionType::Decrement(value ) => {
-            acc.data -= value
+            msg!("Applying Decrease")
+             counter_data.counter -= value;
         } 
     }
+
+    counter_data.serialize(&mut *acc.data.borrow());
+    msg!("Contract Successful");
+    Ok(())
 }           
