@@ -42,6 +42,6 @@ pub fn counter_contract(
         } 
     }
     counter_data.serialize(&mut *acc.data.borrow_mut())?;
-    msg!("Contract Successful");
+    msg!("Contract updated to {}" , counter_data.counter);
     Ok(())
 }           
